@@ -27,4 +27,4 @@ test('console tests', console_test)
 
 pkg = import('pkgconfig')
 install_headers(console_hdr, subdir: 'console')
-pkg.generate(console_lib, subdirs: 'console')
+pkg.generate(console_lib, subdirs: 'console', description: 'A library for manipulating console output', 'url': 'https://github.com/ohz10/console')
