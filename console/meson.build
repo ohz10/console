@@ -5,6 +5,7 @@ console_src = [
 	'line.cpp',
 	'reset.cpp',
 	'screen.cpp',
+	'spinner.cpp',
 	'style.cpp',
 ]
 
@@ -19,17 +20,18 @@ console_hdr = [
 	'line.hpp',
 	'reset.hpp',
 	'screen.hpp',
+	'spinner.hpp',
 	'style.hpp',
 ]
 
 console_lib = static_library('console', console_src, include_directories : [includes])
 console = declare_dependency(link_with : console_lib, include_directories : [includes])
 
-console_test_src = [
-	'console-ut.cpp',
-]
-console_test = executable('console_ut', [console_test_src], dependencies : [console])
+console_test = executable('console_ut', ['console-ut.cpp'], dependencies : [console])
 test('console tests', console_test)
+
+spinner_test = executable('spinner_ut', ['spinner-ut.cpp'], dependencies : [console])
+test('spinner tests', spinner_test)
 
 pkg = import('pkgconfig')
 install_headers(console_hdr, subdir: 'console')

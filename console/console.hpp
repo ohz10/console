@@ -8,5 +8,6 @@
 #include <console/line.hpp>
 #include <console/reset.hpp>
 #include <console/screen.hpp>
+#include <console/spinner.hpp>
 #include <console/style.hpp>
 
