@@ -12,56 +12,51 @@ auto stock_spinner()
 	auto spinner = spinners::Spinner(2000)
 		.color(color::green)
 		.message(imbue(color::red, " fetching data"))
-		.on_finish(imbue(color::white, "complete."));
+		.on_finish(imbue(color::white, "complete.", "\n"));
 
 	std::cout << cursor::hide;
-	for(uint16_t i = 0; i < 3000; ++i)
-	{
-		const auto [m, cont] = spinner.update(100);
-		std::cout << m << std::flush;
 
-		if(!cont) 
-		{
-			std::cout << "\n";
-			break;
-		}
+	std::string m;
+	bool cont;
+
+	do {
+		std::tie(m, cont) = spinner.update(100);
+		std::cout << m << std::flush;
 	
 		std::this_thread::sleep_for(spinners::tick);
-	}
+	} while(cont);
+
 	std::cout << cursor::show;
 }
 
 auto bouncing_spinner()
 {
 	const std::vector messages = {" bounce", " bounce bounce", " all day long"};
-	uint8_t mc = 0;
+	uint8_t mc = 1;
+
+	uint16_t perc = 100 / messages.size();
+	std::string m;
+	bool cont;
 
 	auto spinner = spinners::Spinner(2000)
 		.style("*-.")
 		.message(messages.at(0))
-		.on_finish("complete");
+		.on_finish("complete.\n");
 
 	std::cout << cursor::hide;
-	for(uint16_t i = 0; i < 3000; ++i)
-	{
-		const auto [m, cont] = spinner.update(100);
+
+	do {
+		std::tie(m, cont) = spinner.update(100);
 		std::cout << m << std::flush;
-
-		std::cout << imbue(cursor::up(1),line::clear,cursor::go_col(1),"percent: ", spinner.percent(), "\n");
-
-		if(!cont) 
-		{ 
-			std::cout << "\n"; 
-			break; 
+		
+		if(spinner.percent() >= perc)
+		{
+			perc = spinner.percent() + (100 / messages.size()); 
+			spinner.message(messages.at(mc++ % messages.size()));
 		}
 
 		std::this_thread::sleep_for(spinners::tick);
-
-		if(i % 1000)
-		{
-			spinner.message(messages.at(mc++ % messages.size()));
-		}
-	}
+	} while(cont);
 	std::cout << cursor::show;
 }
 
