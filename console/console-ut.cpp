@@ -1,7 +1,9 @@
 #include <console/console.hpp>
 
+#include <chrono>
 #include <iostream>
 #include <string>
+#include <thread>
 
 using namespace console;
 
@@ -81,5 +83,45 @@ int main()
 		<< imbue(color::rgb(100,50,10), style::bold, "bold brown") << "\n"
 		<< imbue(color::rgb(10,50,200), style::bold, style::underline, "bold underline blue") << "\n"
 		<< imbue(color::bold::green, style::underline, style::blink, "bold underline blinking green") << "\n"
+		<< "-----------------------------------------\n"
+
+		<< "\n"
+
+		<< "-----------------------------------------\n"
+		<< cursor::right(10) << "r*" << "\n"
+		<< cursor::right(10) << cursor::left(4) << "l*" << "\n"
+		<< cursor::up(6) << "u*" << "\n"
+		<< cursor::down(4) << "d*" << "\n"
+		<< cursor::hide << cursor::show << "\n"
+		<< "-----------------------------------------\n"
 	;
+
+	std::cout 
+		<< cursor::go_to(10, 40) << "yo yo" << cursor::go_to(40, 1) << "\n"
+		<< cursor::go_col(20) << "yo yo" << "\n";
+	
+	std::this_thread::sleep_for(std::chrono::seconds(2));
+
+	std::cout << screen::clear;
+	std::cout << "hello hello";
+	std::this_thread::sleep_for(std::chrono::seconds(2));	
+	std::cout << line::clear << cursor::home;
+	std::cout << "goodbye goodbye" << "\n";
+
+	std::cout << "hello hello";
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::cout << line::clear_before << "\n";
+
+	std::cout << "the quick brown fox jumped over the log";
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::cout << cursor::go_col(16) << line::clear_after << "\n";
+
+	std::cout << "more stuff\nand more stuff\nand more\n";
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	std::cout << screen::clear_above;
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+
+	std::cout << "more stuff\nand more stuff\nand more\n"
+		<< cursor::up(2) << screen::clear_below;
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 }
