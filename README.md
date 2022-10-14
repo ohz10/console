@@ -1,6 +1,6 @@
 # Console
 
-A library for manipulating console output.
+A library for manipulating console output via ANSI Escape Sequences.
 
 ## Dependencies
 
