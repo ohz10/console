@@ -6,8 +6,6 @@
 
 namespace console { namespace spinners {
 
-	const std::chrono::milliseconds tick = std::chrono::milliseconds(100);
- 
 	Spinner::Spinner(const uint64_t max)
 		: max_(max)
 	{

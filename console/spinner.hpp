@@ -8,8 +8,6 @@
 
 namespace console { namespace spinners {
 
-	extern const std::chrono::milliseconds tick;
-
 	class Spinner
 	{
 	public:
