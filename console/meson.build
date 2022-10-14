@@ -1,7 +1,10 @@
 console_src = [
 	'background.cpp',
 	'colors.cpp',
+	'cursor.cpp',
+	'line.cpp',
 	'reset.cpp',
+	'screen.cpp',
 	'style.cpp',
 ]
 
@@ -10,9 +13,12 @@ console_hdr = [
 
 	'background.hpp',
 	'colors.hpp',
+	'cursor.hpp',
 	'escape.hpp',
 	'imbue.hpp',
+	'line.hpp',
 	'reset.hpp',
+	'screen.hpp',
 	'style.hpp',
 ]
 
@@ -27,4 +33,4 @@ test('console tests', console_test)
 
 pkg = import('pkgconfig')
 install_headers(console_hdr, subdir: 'console')
-pkg.generate(console_lib, subdirs: 'console')
+pkg.generate(console_lib, subdirs: 'console', description: 'A library for manipulating console output')
