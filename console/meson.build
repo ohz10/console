@@ -1,27 +1,27 @@
 console_src = [
-	'background.cpp',
-	'colors.cpp',
-	'cursor.cpp',
-	'line.cpp',
-	'reset.cpp',
-	'screen.cpp',
-	'spinner.cpp',
-	'style.cpp',
+    'background.cpp',
+    'colors.cpp',
+    'cursor.cpp',
+    'line.cpp',
+    'reset.cpp',
+    'screen.cpp',
+    'spinner.cpp',
+    'style.cpp',
 ]
 
 console_hdr = [
-	'console.hpp',	# umbrella header
+    'console.hpp',  # umbrella header
 
-	'background.hpp',
-	'colors.hpp',
-	'cursor.hpp',
-	'escape.hpp',
-	'imbue.hpp',
-	'line.hpp',
-	'reset.hpp',
-	'screen.hpp',
-	'spinner.hpp',
-	'style.hpp',
+    'background.hpp',
+    'colors.hpp',
+    'cursor.hpp',
+    'escape.hpp',
+    'imbue.hpp',
+    'line.hpp',
+    'reset.hpp',
+    'screen.hpp',
+    'spinner.hpp',
+    'style.hpp',
 ]
 
 console_lib = static_library('console', console_src, include_directories : [includes])

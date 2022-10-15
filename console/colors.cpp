@@ -3,16 +3,16 @@
 
 namespace console { namespace color {
 
-	auto rgb(const uint8_t r, const uint8_t g, const uint8_t b) -> Escape
-	{
-		std::ostringstream ss;
-		ss  << "\x1b[38;2;" 
-			<< static_cast<int>(r) << ";" 
-			<< static_cast<int>(g) << ";" 
-			<< static_cast<int>(b) << "m";
+    auto rgb(const uint8_t r, const uint8_t g, const uint8_t b) -> Escape
+    {
+        std::ostringstream ss;
+        ss  << "\x1b[38;2;" 
+            << static_cast<int>(r) << ";" 
+            << static_cast<int>(g) << ";" 
+            << static_cast<int>(b) << "m";
 
-		return ss.str();
-	}
+        return ss.str();
+    }
 
     const Escape black = {"\033[30m"};
     const Escape red = {"\033[31m"};
