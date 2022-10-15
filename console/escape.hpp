@@ -2,6 +2,6 @@
 #include <string>
 
 namespace console {
-	using Escape = std::string;
+    using Escape = std::string;
 }
 

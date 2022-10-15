@@ -6,14 +6,14 @@
 
 namespace console {
 
-	template<typename... Args>
-	auto imbue(Args&&... args) -> Escape
-	{
-		std::ostringstream ss;
-		(ss << ... << args);
+    template<typename... Args>
+    auto imbue(Args&&... args) -> Escape
+    {
+        std::ostringstream ss;
+        (ss << ... << args);
 
-		ss << reset::all;
-		return ss.str();
-	}
+        ss << reset::all;
+        return ss.str();
+    }
 }
 
