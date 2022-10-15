@@ -12,8 +12,8 @@ auto file_counter()
 {
     cursor::ScopedHider hide(std::cout);
     
-    const auto tick = std::chrono::milliseconds(100);
-    auto ticker = Counter(2000)
+    const auto tick = std::chrono::milliseconds(1);
+    auto ticker = Counter(1000)
         .count_color({color::grey})
         .total_color({color::dark_grey})
         .message(imbue(color::light_cyan, " files downloaded..."))
@@ -23,10 +23,13 @@ auto file_counter()
     Status status;
     
     do {
-        std::tie(m, status) = ticker.update(100);
+        std::tie(m, status) = ticker.update(3);
         std::cout << m << std::flush;
         
-        std::this_thread::sleep_for(tick);
+        if(ticker.count() % 10)
+        {
+            std::this_thread::sleep_for(tick);
+        }
     } while(status == Status::Continue);
 }
 
