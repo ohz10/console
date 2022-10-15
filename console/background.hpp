@@ -19,6 +19,6 @@ namespace console { namespace background {
     extern const Escape light_purple;
     extern const Escape light_cyan;
     extern const Escape white;
-
+    extern const Escape default_background;
 }}
 

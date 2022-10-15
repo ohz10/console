@@ -4,10 +4,10 @@ namespace console { namespace cursor {
 
     using namespace std::literals::string_literals;
 
-    const Escape hide = {"\033[?25l"};
-    const Escape show = {"\033[?25h"};
+    const Escape hide = "\033[?25l";
+    const Escape show = "\033[?25h";
 
-    const Escape home = {"\033[H"};
+    const Escape home = "\033[H";
 
     auto go_to(const uint16_t row, const uint16_t column) -> std::string 
     {

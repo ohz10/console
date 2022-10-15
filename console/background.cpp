@@ -18,6 +18,7 @@ namespace console { namespace background {
     const Escape light_purple = "\033[105m";
     const Escape light_cyan = "\033[106m";
     const Escape white = "\033[107m";
-
+    
+    const Escape default_background = "\033[49m";
 }}
 

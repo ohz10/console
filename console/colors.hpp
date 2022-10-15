@@ -22,7 +22,7 @@ namespace console { namespace color {
     extern const Escape light_purple;
     extern const Escape light_cyan;
     extern const Escape white;
-
+    extern const Escape default_foreground;
 }}
 
 namespace console { namespace color { namespace bold {
