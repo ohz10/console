@@ -1,6 +1,9 @@
 #pragma once
-#include <console/progress.hpp>
+
+#include <console/console_color.hpp>
 #include <console/escape.hpp>
+#include <console/progress.hpp>
+
 
 #include <chrono>
 #include <cstdint>
@@ -15,7 +18,7 @@ namespace console { namespace progress {
         Spinner(const uint64_t max);
 
         auto style(const std::string& chars) -> Spinner&;
-        auto color(const Escape& color) -> Spinner&;
+        auto color(const ConsoleColor& color) -> Spinner&;
         auto message(const std::string& msg) -> Spinner&;
         auto on_finish(const std::string& msg) -> Spinner&;
 
@@ -24,12 +27,12 @@ namespace console { namespace progress {
 
     private:
         std::string style_ = "|/-\\";
-        std::string message_ = "";
-        std::string finished_ = "";
+        std::string message_;
+        std::string finished_;
 
-        Escape color_ = "";
+        ConsoleColor color_;
 
-        uint8_t spinner_ = 0;
+        uint8_t position_ = 0;
     };
 }}
 

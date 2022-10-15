@@ -36,9 +36,9 @@ auto stock_spinner()
     
     const auto tick = std::chrono::milliseconds(100);
     auto spinner = Spinner(2000)
-        .color(color::white)
-        .message(imbue(color::blue, " fetching data"))
-        .on_finish(imbue(color::white, "complete.", "\n"));
+        .color({color::white})
+        .message(imbue(ConsoleColor{color::blue}, " fetching data"))
+        .on_finish(imbue(ConsoleColor{color::white}, "complete.", "\n"));
 
     std::string m;
     Status status;
@@ -66,7 +66,7 @@ auto bouncing_spinner()
     auto spinner = Spinner(2000)
         .style("*-.")
         .message(messages.at(0))
-        .on_finish(imbue(style::bold, color::green, "complete.", "\n"));
+        .on_finish(imbue(ConsoleColor{color::bold::green}, "complete.", "\n"));
 
     do {
         std::tie(m, status) = spinner.update(100);
