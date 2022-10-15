@@ -1,5 +1,7 @@
 #pragma once
 #include <console/escape.hpp>
+
+#include <iostream>
 #include <string>
 
 namespace console { namespace cursor {
@@ -16,5 +18,22 @@ namespace console { namespace cursor {
     extern const Escape show;
 
     extern const Escape home;
+    
+    class ScopedHider
+    {
+    public:
+        ScopedHider(std::ostream& os)
+            : os_(os)
+        {
+            os_ << hide << std::flush;
+        }
+        
+        ~ScopedHider()
+        {
+            os_ << show << std::flush;
+        }
+    private:
+        std::ostream& os_;
+    };
 }}
 

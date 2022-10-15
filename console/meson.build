@@ -18,6 +18,7 @@ console_hdr = [
     'escape.hpp',
     'imbue.hpp',
     'line.hpp',
+	'progress.hpp',
     'reset.hpp',
     'screen.hpp',
     'spinner.hpp',
@@ -30,8 +31,8 @@ console = declare_dependency(link_with : console_lib, include_directories : [inc
 console_test = executable('console_ut', ['console-ut.cpp'], dependencies : [console])
 test('console tests', console_test)
 
-spinner_test = executable('spinner_ut', ['spinner-ut.cpp'], dependencies : [console])
-test('spinner tests', spinner_test)
+progress_test = executable('progress_ut', ['progress-ut.cpp'], dependencies : [console])
+test('progress tests', progress_test)
 
 pkg = import('pkgconfig')
 install_headers(console_hdr, subdir: 'console')

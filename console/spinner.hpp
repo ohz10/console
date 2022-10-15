@@ -1,4 +1,5 @@
 #pragma once
+#include <console/progress.hpp>
 #include <console/escape.hpp>
 
 #include <chrono>
@@ -6,9 +7,9 @@
 #include <string>
 #include <utility>
 
-namespace console { namespace spinners {
+namespace console { namespace progress {
 
-    class Spinner
+    class Spinner : public ProgressIndicator
     {
     public:
         Spinner(const uint64_t max);
@@ -19,16 +20,7 @@ namespace console { namespace spinners {
         auto on_finish(const std::string& msg) -> Spinner&;
 
     public:
-        // returns the string to print and whether the spinner is done
-        auto update(const uint64_t by_count) -> std::pair<std::string, bool>;
-
-        auto count() const -> uint64_t { return update_count_; }
-        auto max() const -> uint64_t { return max_; }
-
-        auto percent() const -> uint16_t {
-            const double perc = 100.0 * ((double)update_count_ / (double)max_);
-            return perc;
-        }
+        auto update(const uint64_t by_count) -> std::pair<std::string, Status>;
 
     private:
         std::string style_ = "|/-\\";
@@ -37,8 +29,6 @@ namespace console { namespace spinners {
 
         Escape color_ = "";
 
-        const uint64_t max_;
-        uint64_t update_count_ = 0;
         uint8_t spinner_ = 0;
     };
 }}

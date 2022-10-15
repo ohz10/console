@@ -6,6 +6,7 @@
 #include <console/escape.hpp>
 #include <console/imbue.hpp>
 #include <console/line.hpp>
+#include <console/progress.hpp>
 #include <console/reset.hpp>
 #include <console/screen.hpp>
 #include <console/spinner.hpp>

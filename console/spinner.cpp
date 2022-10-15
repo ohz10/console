@@ -4,10 +4,10 @@
 #include <console/imbue.hpp>
 #include <console/line.hpp>
 
-namespace console { namespace spinners {
+namespace console { namespace progress {
 
     Spinner::Spinner(const uint64_t max)
-        : max_(max)
+        : ProgressIndicator(max)
     {
     }
 
@@ -35,20 +35,20 @@ namespace console { namespace spinners {
         return *this;
     }
 
-    auto Spinner::update(const uint64_t by_count) -> std::pair<std::string, bool>
+    auto Spinner::update(const uint64_t by_count) -> std::pair<std::string, Status>
     {
-        update_count_ += by_count;
-
-        if(update_count_ >= max_)
+        count_ += by_count;
+        
+        if(count_ >= max_)
         {
             const auto finish_msg = imbue(line::clear,cursor::go_col(1), finished_);
-            return std::make_pair(finish_msg, false);
+            return std::make_pair(finish_msg, Status::Complete);
         }
 
         const auto c = spinner_++ % style_.length();
         const auto spinner_msg = imbue(line::clear,cursor::go_col(1), color_,style_.at(c), message_);
 
-        return std::make_pair(spinner_msg, true);
+        return std::make_pair(spinner_msg, Status::Continue);
     }
 }}
 
