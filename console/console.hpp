@@ -2,6 +2,8 @@
 
 #include <console/background.hpp>
 #include <console/colors.hpp>
+#include <console/console_color.hpp>
+#include <console/counter.hpp>
 #include <console/cursor.hpp>
 #include <console/escape.hpp>
 #include <console/imbue.hpp>

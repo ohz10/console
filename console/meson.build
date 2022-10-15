@@ -1,6 +1,7 @@
 console_src = [
     'background.cpp',
     'colors.cpp',
+	'counter.cpp',
     'cursor.cpp',
     'line.cpp',
     'reset.cpp',
@@ -14,6 +15,8 @@ console_hdr = [
 
     'background.hpp',
     'colors.hpp',
+	'console_color.hpp',
+	'counter.hpp',
     'cursor.hpp',
     'escape.hpp',
     'imbue.hpp',

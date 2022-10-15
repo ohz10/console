@@ -8,6 +8,28 @@
 using namespace console;
 using namespace console::progress;
 
+auto file_counter()
+{
+    cursor::ScopedHider hide(std::cout);
+    
+    const auto tick = std::chrono::milliseconds(100);
+    auto ticker = Counter(2000)
+        .count_color({color::grey})
+        .total_color({color::dark_grey})
+        .message(imbue(color::light_cyan, " files downloaded..."))
+        .on_finish(imbue(color::cyan, "complete.", "\n"));
+        
+    std::string m;
+    Status status;
+    
+    do {
+        std::tie(m, status) = ticker.update(100);
+        std::cout << m << std::flush;
+        
+        std::this_thread::sleep_for(tick);
+    } while(status == Status::Continue);
+}
+
 auto stock_spinner()
 {
     cursor::ScopedHider hide(std::cout);
@@ -62,6 +84,7 @@ auto bouncing_spinner()
 
 int main()
 {
+    file_counter();
     stock_spinner();
     bouncing_spinner();
 }
