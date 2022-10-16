@@ -9,6 +9,7 @@
 #include <console/imbue.hpp>
 #include <console/line.hpp>
 #include <console/progress.hpp>
+#include <console/progress_bar.hpp>
 #include <console/reset.hpp>
 #include <console/screen.hpp>
 #include <console/spinner.hpp>

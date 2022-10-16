@@ -39,21 +39,20 @@ namespace console { namespace progress {
     {
         count_ += by_count;
         
-        if(count_ >= max_)
-        {
-            const auto finish_msg = imbue(line::clear,cursor::go_col(1), finished_);
-            return std::make_pair(finish_msg, Status::Complete);
-        }
+        const auto done = count_ >= max_;
+        count_ = done ? max_ : count_;
 
-        const auto c = position_++ % style_.length();
+        const auto pos = position_++ % style_.length();
         const auto spinner_msg = imbue(
               line::clear
             , cursor::go_col(1)
             , color_
-            ,style_.at(c)
+            , style_.at(pos)
             , message_);
 
-        return std::make_pair(spinner_msg, Status::Continue);
+        return done 
+            ? std::make_pair(finished_, Status::Complete)
+            : std::make_pair(spinner_msg, Status::Continue);
     }
 }}
 
