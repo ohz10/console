@@ -72,6 +72,8 @@ namespace console { namespace progress {
         count_ += by_count;
         
         const auto done = count_ >= max_;
+        count_ = done ? max_ : count_;
+        
         const auto tail = done ? finished_ : "";
         const auto msg = imbue(
               line::clear

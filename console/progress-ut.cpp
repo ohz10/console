@@ -16,9 +16,14 @@ auto file_counter()
     auto ticker = Counter(1000)
         .count_color({color::grey})
         .total_color({color::dark_grey})
-        .message(imbue(color::light_cyan, " files downloaded..."))
-        .on_finish(imbue(color::cyan, "complete.", "\n"));
-        
+        .message(imbue(color::light_cyan, "files downloaded... "))
+        .on_finish(imbue(
+              line::clear
+            , cursor::go_col(1)
+            , color::cyan
+            , "complete."
+            , "\n"));
+
     std::string m;
     Status status;
     
@@ -41,7 +46,11 @@ auto stock_spinner()
     auto spinner = Spinner(2000)
         .color({color::white})
         .message(imbue(ConsoleColor{color::blue}, " fetching data"))
-        .on_finish(imbue(ConsoleColor{color::white}, "complete.", "\n"));
+        .on_finish(imbue(
+              line::clear
+            , cursor::go_col(1)
+            , ConsoleColor{color::white}
+            , "complete.", "\n"));
 
     std::string m;
     Status status;
@@ -69,7 +78,11 @@ auto bouncing_spinner()
     auto spinner = Spinner(2000)
         .style("*-.")
         .message(messages.at(0))
-        .on_finish(imbue(ConsoleColor{color::bold::green}, "complete.", "\n"));
+        .on_finish(imbue(
+              line::clear
+            , cursor::go_col(1)
+            , ConsoleColor{color::bold::green}
+            , "complete.", "\n"));
 
     do {
         std::tie(m, status) = spinner.update(100);
