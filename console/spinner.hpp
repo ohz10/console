@@ -4,7 +4,6 @@
 #include <console/escape.hpp>
 #include <console/progress.hpp>
 
-#include <chrono>
 #include <cstdint>
 #include <string>
 #include <utility>
