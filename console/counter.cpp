@@ -63,15 +63,14 @@ namespace console { namespace progress {
     {
         count_ += by_count;
         
-        if(count_ >= max_)
-        {
-            const auto finish_msg = imbue(line::clear,cursor::go_col(1), finished_);
-            return std::make_pair(finish_msg, Status::Complete);
-        }
-
-        const auto count_msg = imbue(
+        const auto done = count_ >= max_;
+        count_ = done ? max_ : count_;
+        
+        const auto tail = done ? finished_ : "";
+        const auto msg = imbue(
               line::clear
             , cursor::go_col(1)
+            , message_
             , bracket_color_
             , left_
             , count_color_
@@ -82,9 +81,9 @@ namespace console { namespace progress {
             , max_
             , bracket_color_
             , right_
-            , message_);
+            , tail);
 
-        return std::make_pair(count_msg, Status::Continue);
+        return std::make_pair(msg, done ? Status::Complete : Status::Continue);
     }
 
 }}
