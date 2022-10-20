@@ -2,7 +2,7 @@
 
 #include <console/console_color.hpp>
 #include <console/escape.hpp>
-#include <console/progress.hpp>
+#include <console/progress_indicator.hpp>
 
 #include <cstdint>
 #include <string>

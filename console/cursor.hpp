@@ -5,12 +5,17 @@
 #include <string>
 
 namespace console { namespace cursor {
+    struct Position;
+}}
+
+namespace console { namespace cursor {
 
     auto up(const uint16_t rows) -> std::string;
     auto down(const uint16_t rows) -> std::string;
     auto left(const uint16_t columns) -> std::string;
     auto right(const uint16_t columns) -> std::string;
 
+    auto go_to(const Position& pos) -> std::string;
     auto go_to(const uint16_t row, const uint16_t column) -> std::string;
     auto go_col(const uint16_t column) -> std::string;
 

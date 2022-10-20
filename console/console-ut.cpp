@@ -124,4 +124,10 @@ int main()
     std::cout << "more stuff\nand more stuff\nand more\n"
         << cursor::up(2) << screen::clear_below;
     std::this_thread::sleep_for(std::chrono::seconds(1));
+    
+    std::cout << cursor::Position{20,20} << "in the middle with you" << "\n";
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::cout << cursor::Position{20,20} << line::clear_after << cursor::home;
+    
+    std::cout << screen::clear;
 }

@@ -1,4 +1,6 @@
 #pragma once
+#include <console/position.hpp>
+
 #include <cstdint>
 #include <string>
 
@@ -13,10 +15,7 @@ namespace console { namespace progress {
     class ProgressIndicator
     {
     public:
-        ProgressIndicator(const uint64_t max)
-            : max_(max)
-        {
-        }
+        ProgressIndicator(const uint64_t max);
 
         auto count() const -> uint64_t { return count_; }
         auto max() const -> uint64_t { return max_; }
