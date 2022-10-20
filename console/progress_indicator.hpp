@@ -1,4 +1,6 @@
 #pragma once
+#include <console/position.hpp>
+
 #include <cstdint>
 #include <string>
 
