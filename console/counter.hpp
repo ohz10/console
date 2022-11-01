@@ -2,8 +2,11 @@
 
 #include <console/background.hpp>
 #include <console/console_color.hpp>
-#include <console/progress.hpp>
+#include <console/cursor.hpp>
 #include <console/escape.hpp>
+#include <console/imbue.hpp>
+#include <console/line.hpp>
+#include <console/progress_indicator.hpp>
 
 #include <cstdint>
 #include <string>
@@ -24,6 +27,8 @@ namespace console { namespace progress {
         auto message_color(const ConsoleColor& color) -> Counter&;
 
         auto message(const std::string& msg) -> Counter&;
+        
+        auto before_update(const Escape& escapeSeq) -> Counter&;
         auto on_finish(const std::string& msg) -> Counter&;
 
     public:
@@ -31,6 +36,7 @@ namespace console { namespace progress {
 
     private:
         std::string message_;
+        std::string before_ = imbue(cursor::go_col(1), line::clear_after);
         std::string finished_;
 
         std::string left_ = "[";

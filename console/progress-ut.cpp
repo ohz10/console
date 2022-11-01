@@ -17,9 +17,9 @@ auto file_counter()
         .count_color({color::grey})
         .total_color({color::dark_grey})
         .message(imbue(color::light_cyan, "files downloaded... "))
+        .before_update(imbue(cursor::go_col(1), line::clear_after))
         .on_finish(imbue(
-              line::clear
-            , cursor::go_col(1)
+              " "
             , color::cyan
             , "complete."
             , "\n"));
@@ -125,10 +125,41 @@ auto stock_bar()
     } while(status == Status::Continue);
 }
 
+auto message_before_bar()
+{
+    cursor::ScopedHider hide(std::cout);
+    
+    const auto tick = std::chrono::milliseconds(100);
+    std::string m;
+    Status status;
+    
+    auto bar = ProgressBar(40, 2000)
+        .color({color::light_blue})
+        .bracket_color({color::purple})
+        .before_update(imbue(
+              ConsoleColor{color::grey}
+            , cursor::go_col(10)
+            , line::clear_after))
+        .on_finish(imbue(
+              cursor::go_col(1)
+            , line::clear
+            , ConsoleColor{color::bold::grey}
+            , "done."
+            , "\n"));
+        
+    do {
+        std::tie(m, status) = bar.update(100);
+        std::cout << m << std::flush;
+        
+        std::this_thread::sleep_for(tick);
+    } while(status == Status::Continue);
+}
+
 int main()
 {
     file_counter();
     stock_spinner();
     bouncing_spinner();
     stock_bar();
+    message_before_bar();
 }

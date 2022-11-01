@@ -1,9 +1,5 @@
 #include <console/spinner.hpp>
 
-#include <console/cursor.hpp>
-#include <console/imbue.hpp>
-#include <console/line.hpp>
-
 namespace console { namespace progress {
 
     Spinner::Spinner(const uint64_t max)
@@ -29,6 +25,12 @@ namespace console { namespace progress {
         return *this;
     }
 
+    auto Spinner::before_update(const Escape& escapeSeq) -> Spinner&
+    {
+        before_ = escapeSeq;
+        return *this;
+    }
+    
     auto Spinner::on_finish(const std::string& msg) -> Spinner&
     {
         finished_ = imbue(msg, cursor::show);
@@ -44,8 +46,7 @@ namespace console { namespace progress {
 
         const auto pos = position_++ % style_.length();
         const auto spinner_msg = imbue(
-              line::clear
-            , cursor::go_col(1)
+              before_
             , color_
             , style_.at(pos)
             , message_);
