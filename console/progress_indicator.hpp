@@ -29,5 +29,7 @@ namespace console { namespace progress {
     protected:
         const uint64_t max_;
         uint64_t count_ = 0;
+        
+        bool done_ = false;
     };
 }}

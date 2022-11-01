@@ -1,8 +1,5 @@
 #include <console/progress_bar.hpp>
-
-#include <console/cursor.hpp>
-#include <console/imbue.hpp>
-#include <console/line.hpp>
+#include <sstream>
 
 namespace console { namespace progress {
 
@@ -48,6 +45,12 @@ namespace console { namespace progress {
         return *this;
     }
     
+    auto ProgressBar::before_update(const Escape& escapeSeq) -> ProgressBar&
+    {
+        before_ = escapeSeq;
+        return *this;
+    }
+    
     auto ProgressBar::on_finish(const std::string& msg) -> ProgressBar&
     {
         finished_ = msg;
@@ -56,38 +59,36 @@ namespace console { namespace progress {
 
     auto ProgressBar::bars() -> std::string
     {
-        std::string s;
+        std::ostringstream ss;
+        ss << bracket_color_ << left_ << color_;
+        
         uint16_t bars = (width_ * percent()) / 100;
         
         for(uint16_t i = 0; i < bars; ++i)
         {
-            s += style_;
+            ss << style_;
         }
+    
+        ss << std::string(width_ - bars, ' ') << bracket_color_ << right_;
         
-        return s;
+        return ss.str();
     }
 
     auto ProgressBar::update(const uint64_t by_count) -> std::pair<std::string, Status>
     {
         count_ += by_count;
         
-        const auto done = count_ >= max_;
-        count_ = done ? max_ : count_;
+        const auto done = done_;
+        done_ = count_ >= max_;
+        count_ = done_ ? max_ : count_;
         
-        const auto tail = done ? finished_ : "";
-        const auto msg = imbue(
-              line::clear
-            , cursor::go_col(1)
-            , bracket_color_
-            , left_
-            , color_
-            , bars()
-            , cursor::go_col(width_ + 2)
-            , bracket_color_
-            , right_
-            , message_
-            , tail);
+        const auto bar_msg = imbue(
+                before_
+              , bars()
+              , message_);
 
-        return std::make_pair(msg, done ? Status::Complete : Status::Continue);
+        return done 
+            ? std::make_pair(finished_, Status::Complete)
+            : std::make_pair(bar_msg, Status::Continue);
     }
 }}

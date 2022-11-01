@@ -1,9 +1,5 @@
 #include <console/counter.hpp>
 
-#include <console/cursor.hpp>
-#include <console/imbue.hpp>
-#include <console/line.hpp>
-
 namespace console { namespace progress {
     
     Counter::Counter(const uint64_t max)
@@ -53,6 +49,12 @@ namespace console { namespace progress {
         return *this;
     }
 
+    auto Counter::before_update(const Escape& escapeSeq) -> Counter&
+    {
+        before_ = escapeSeq;
+        return *this;
+    }
+    
     auto Counter::on_finish(const std::string& msg) -> Counter&
     {
         finished_ = msg;
@@ -63,13 +65,12 @@ namespace console { namespace progress {
     {
         count_ += by_count;
         
-        const auto done = count_ >= max_;
-        count_ = done ? max_ : count_;
-        
-        const auto tail = done ? finished_ : "";
+        const auto done = done_;
+        done_ = count_ >= max_;
+        count_ = done_ ? max_ : count_;
+
         const auto msg = imbue(
-              line::clear
-            , cursor::go_col(1)
+              before_
             , message_
             , bracket_color_
             , left_
@@ -80,10 +81,11 @@ namespace console { namespace progress {
             , total_color_
             , max_
             , bracket_color_
-            , right_
-            , tail);
+            , right_);
 
-        return std::make_pair(msg, done ? Status::Complete : Status::Continue);
+        return done 
+            ? std::make_pair(finished_, Status::Complete)
+            : std::make_pair(msg, Status::Continue);
     }
 
 }}
