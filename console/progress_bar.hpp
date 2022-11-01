@@ -1,7 +1,10 @@
 #pragma once
 
 #include <console/console_color.hpp>
+#include <console/cursor.hpp>
 #include <console/escape.hpp>
+#include <console/imbue.hpp>
+#include <console/line.hpp>
 #include <console/progress_indicator.hpp>
 
 #include <cstdint>
@@ -23,6 +26,8 @@ namespace console { namespace progress {
         auto right(const std::string& r) -> ProgressBar&;
         
         auto message(const std::string& msg) -> ProgressBar&;
+        
+        auto before_update(const Escape& escapeSeq) -> ProgressBar&;
         auto on_finish(const std::string& msg) -> ProgressBar&;
 
     public:
@@ -38,6 +43,7 @@ namespace console { namespace progress {
         std::string right_ = "]";
         
         std::string message_;
+        std::string before_ = imbue(cursor::go_col(1), line::clear_after);
         std::string finished_;
 
         ConsoleColor color_;
